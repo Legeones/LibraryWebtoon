@@ -179,14 +179,14 @@ class ProcessingPipeline:
         return output_path
     
     def _map_language_code(self, lang_code: str) -> str:
-        """Map ISO language codes to Tesseract codes"""
+        """Map ISO language codes to PaddleOCR language codes"""
         mapping = {
-            "ja": "jpn",
-            "en": "eng",
-            "ko": "kor",
-            "zh": "chi_sim",
-            "fr": "fra",
-            "de": "deu",
-            "es": "spa",
+            "ja": "japan",
+            "en": "en",
+            "ko": "korean",
+            "zh": "ch",
+            "fr": "french",
+            "de": "german",
+            "es": "spanish",
         }
-        return mapping.get(lang_code, "eng")
+        return mapping.get(lang_code, "en")

@@ -42,7 +42,7 @@ class TextRegion(BaseModel):
 class ProcessingOptions(BaseModel):
     source_language: str = "ja"
     target_language: str = "en"
-    ocr_engine: str = "tesseract"  # tesseract, easyocr (future)
+    ocr_engine: str = "paddleocr"  # paddleocr
     translation_engine: str = "mock"  # mock, deepl, google (future)
     inpaint_method: str = "telea"  # telea, ns (OpenCV methods)
     detect_text: bool = True

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class ProcessingRequest {
     private String sourceLanguage = "ja";
     private String targetLanguage = "en";
-    private String ocrEngine = "tesseract";
+    private String ocrEngine = "paddleocr";
     private String translationEngine = "mock";
     private String inpaintMethod = "telea";
 }

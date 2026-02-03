@@ -49,7 +49,7 @@ public class Job {
     private String targetLanguage = "en";
     
     @Column
-    private String ocrEngine = "tesseract";
+    private String ocrEngine = "paddleocr";
     
     @Column
     private String translationEngine = "mock";

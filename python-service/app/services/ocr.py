@@ -1,26 +1,39 @@
 import cv2
-import pytesseract
+import numpy as np
+from paddleocr import PaddleOCR
 from typing import Tuple
 
 
 class OCRService:
-    """Service for performing OCR on text regions"""
+    """Service for performing OCR on text regions using PaddleOCR"""
     
     def __init__(self):
-        # Configure tesseract (can be customized via environment variables)
-        # pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'
-        pass
+        # Initialize PaddleOCR with recognition
+        # We'll create language-specific instances as needed
+        self.ocr_models = {}
+    
+    def _get_ocr_model(self, language: str):
+        """Get or create PaddleOCR model for specific language"""
+        if language not in self.ocr_models:
+            self.ocr_models[language] = PaddleOCR(
+                use_angle_cls=True,
+                lang=language,
+                det=False,  # Disable detection (we already have regions)
+                rec=True,   # Enable recognition
+                show_log=False
+            )
+        return self.ocr_models[language]
     
     def extract_text(self, image_path: str, x: int, y: int, 
-                    width: int, height: int, language: str = "jpn") -> Tuple[str, float]:
+                    width: int, height: int, language: str = "japan") -> Tuple[str, float]:
         """
-        Extract text from a specific region of an image
+        Extract text from a specific region of an image using PaddleOCR
         
         Args:
             image_path: Path to the image
             x, y: Top-left coordinates of region
             width, height: Dimensions of region
-            language: Tesseract language code (jpn, eng, etc.)
+            language: PaddleOCR language code (japan, en, korean, chinese, etc.)
             
         Returns:
             Tuple of (extracted_text, confidence)
@@ -36,35 +49,33 @@ class OCRService:
         if region.size == 0:
             return "", 0.0
         
-        # Convert to grayscale
-        gray = cv2.cvtColor(region, cv2.COLOR_BGR2GRAY)
+        # Get OCR model for the language
+        ocr = self._get_ocr_model(language)
         
-        # Apply thresholding to improve OCR accuracy
-        _, binary = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-        
-        # Perform OCR with detailed data
         try:
-            data = pytesseract.image_to_data(
-                binary,
-                lang=language,
-                output_type=pytesseract.Output.DICT
-            )
+            # Perform OCR on the region
+            # PaddleOCR expects the image array directly
+            result = ocr.ocr(region, det=False, rec=True, cls=True)
             
-            # Extract text and calculate average confidence
+            if not result or not result[0]:
+                return "", 0.0
+            
+            # Extract text and confidence
             text_parts = []
             confidences = []
             
-            for i, conf in enumerate(data['conf']):
-                if conf > 0:  # Valid detection
-                    text = data['text'][i].strip()
-                    if text:
-                        text_parts.append(text)
-                        confidences.append(conf)
+            for line in result[0]:
+                if isinstance(line, (list, tuple)) and len(line) >= 2:
+                    text = line[1][0] if isinstance(line[1], (list, tuple)) else str(line[1])
+                    conf = line[1][1] if isinstance(line[1], (list, tuple)) and len(line[1]) > 1 else 0.9
+                    
+                    text_parts.append(text)
+                    confidences.append(conf)
             
             extracted_text = ' '.join(text_parts)
             avg_confidence = sum(confidences) / len(confidences) if confidences else 0.0
             
-            return extracted_text, avg_confidence / 100.0  # Normalize to 0-1
+            return extracted_text, avg_confidence
             
         except Exception as e:
             print(f"OCR error: {e}")

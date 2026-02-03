@@ -95,29 +95,29 @@ LibraryWebtoon is a three-tier application for automated webtoon panel translati
 
 **Technology Stack**:
 - FastAPI
+- PaddleOCR
 - OpenCV
-- Tesseract OCR
 - Pillow (PIL)
 - NumPy
 
 **Key Features**:
-- Text detection using OpenCV
-- OCR with Tesseract
+- Text detection using PaddleOCR
+- OCR with PaddleOCR
 - Translation (mock/DeepL/Google)
-- Image inpainting
-- Text rendering (typesetting)
+- Image inpainting with OpenCV
+- Text rendering (typesetting) with Pillow
 
 **Processing Pipeline**:
 
 1. **Text Detection** (`text_detection.py`)
-   - Uses OpenCV contour detection
-   - Filters by size and aspect ratio
-   - Returns bounding boxes with confidence
+   - Uses PaddleOCR's text detection model
+   - Accurately detects text regions with high confidence
+   - Returns bounding boxes from polygon coordinates
 
 2. **OCR** (`ocr.py`)
-   - Tesseract-based text extraction
-   - Language support (Japanese, English, etc.)
-   - Confidence scoring
+   - PaddleOCR-based text extraction
+   - Multi-language support (Japanese, English, Chinese, Korean, etc.)
+   - High accuracy with confidence scoring
 
 3. **Translation** (`translation.py`)
    - Mock translation (development)
@@ -297,7 +297,7 @@ STORAGE_PATH=/tmp/webtoon-processing
 UPLOAD_PATH=/tmp/webtoon-uploads
 DEEPL_API_KEY=your_api_key
 GOOGLE_TRANSLATE_API_KEY=your_api_key
-TESSERACT_CMD=/usr/bin/tesseract
+# PaddleOCR models are automatically downloaded and cached in ~/.paddleocr/
 ```
 
 **Spring Boot** (`application.properties`):

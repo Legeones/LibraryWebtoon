@@ -22,7 +22,7 @@ async def process_panel(
     job_id: Optional[str] = None,
     source_language: str = "ja",
     target_language: str = "en",
-    ocr_engine: str = "tesseract",
+    ocr_engine: str = "paddleocr",
     translation_engine: str = "mock",
     inpaint_method: str = "telea"
 ):

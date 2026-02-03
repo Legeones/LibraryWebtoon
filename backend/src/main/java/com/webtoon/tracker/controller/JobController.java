@@ -34,7 +34,7 @@ public class JobController {
             @RequestParam(defaultValue = "default-user") String userId,
             @RequestParam(defaultValue = "ja") String sourceLanguage,
             @RequestParam(defaultValue = "en") String targetLanguage,
-            @RequestParam(defaultValue = "tesseract") String ocrEngine,
+            @RequestParam(defaultValue = "paddleocr") String ocrEngine,
             @RequestParam(defaultValue = "mock") String translationEngine,
             @RequestParam(defaultValue = "telea") String inpaintMethod
     ) {

@@ -6,28 +6,13 @@
 - **Node.js**: 18 or higher
 - **Python**: 3.9 or higher
 - **Maven**: 3.6+ (or use included wrapper)
-- **Tesseract OCR**: Required for Python service
 - **Docker** (optional): For containerized deployment
+
+**Note**: PaddleOCR models will be automatically downloaded on first use. No manual installation required.
 
 ## Installation
 
-### 1. Install System Dependencies
-
-#### Ubuntu/Debian
-```bash
-sudo apt-get update
-sudo apt-get install -y tesseract-ocr tesseract-ocr-jpn tesseract-ocr-eng
-```
-
-#### macOS
-```bash
-brew install tesseract tesseract-lang
-```
-
-#### Windows
-Download and install Tesseract from: https://github.com/UB-Mannheim/tesseract/wiki
-
-### 2. Clone Repository
+### 1. Clone Repository
 
 ```bash
 git clone https://github.com/Legeones/LibraryWebtoon.git
@@ -194,14 +179,8 @@ source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
 ```
 
-**Issue**: Tesseract not found
-**Solution**: Install Tesseract and ensure it's in your PATH
-```bash
-# Check if tesseract is installed
-tesseract --version
-
-# If not found, install it (see Installation section)
-```
+**Issue**: PaddleOCR model download fails
+**Solution**: Ensure you have internet connection. Models will download automatically on first use and are cached in `~/.paddleocr/`. You can also manually download models from PaddleOCR repository.
 
 ### Spring Boot Backend Won't Start
 
@@ -234,11 +213,12 @@ NEXT_PUBLIC_API_URL=http://localhost:8080
 
 ### Processing Fails
 
-**Issue**: OCR returns empty text
+**Issue**: OCR returns empty text or low confidence
 **Solution**: 
-- Ensure Tesseract language packs are installed
+- PaddleOCR models will download automatically on first use
 - Check image quality and contrast
-- Try adjusting image preprocessing
+- Ensure the image contains clear text
+- Try with different language settings
 
 **Issue**: Images not displaying in frontend
 **Solution**:

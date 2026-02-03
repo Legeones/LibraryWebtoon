@@ -76,7 +76,7 @@ This project follows a three-tier architecture:
 
 **Processing Service (Python FastAPI)**: Vision, OCR, translation, image processing
 - Location: `python-service/`
-- Tech: FastAPI, OpenCV, Tesseract, PIL
+- Tech: FastAPI, PaddleOCR, OpenCV, PIL
 - Port: 8001
 
 📚 **Learn more**: [Architecture Documentation](ARCHITECTURE.md)
@@ -97,9 +97,10 @@ This project follows a three-tier architecture:
 
 ### Processing Service
 - **Framework**: FastAPI
-- **Vision**: OpenCV
-- **OCR**: Tesseract
-- **Image**: Pillow (PIL)
+- **Text Detection**: PaddleOCR
+- **OCR**: PaddleOCR
+- **Inpainting**: OpenCV
+- **Typesetting**: Pillow (PIL)
 - **Translation**: Mock, DeepL, Google Translate
 
 ## 📋 Prerequisites
@@ -107,7 +108,6 @@ This project follows a three-tier architecture:
 - **Java**: 17 or higher
 - **Node.js**: 18 or higher  
 - **Python**: 3.9 or higher
-- **Tesseract OCR**: For text extraction
 - **Docker** (optional): For containerized deployment
 
 ## 📖 Documentation
@@ -193,8 +193,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 🙏 Acknowledgments
 
-- OpenCV for computer vision capabilities
-- Tesseract for OCR functionality
+- PaddleOCR for text detection and OCR
+- OpenCV for image inpainting
 - Spring Boot for robust backend framework
 - Next.js for excellent frontend experience
 - FastAPI for high-performance Python API

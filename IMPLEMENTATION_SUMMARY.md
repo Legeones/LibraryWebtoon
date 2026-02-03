@@ -19,19 +19,19 @@
 - `app/main.py` - FastAPI application entry point
 - `app/models/schemas.py` - Pydantic data models
 - `app/routers/processing.py` - API endpoints
-- `app/services/text_detection.py` - OpenCV text detection
-- `app/services/ocr.py` - Tesseract OCR integration
+- `app/services/text_detection.py` - PaddleOCR text detection
+- `app/services/ocr.py` - PaddleOCR recognition integration
 - `app/services/translation.py` - Translation service (extensible)
-- `app/services/inpainting.py` - Image cleaning
-- `app/services/typesetting.py` - Text rendering
+- `app/services/inpainting.py` - OpenCV image cleaning
+- `app/services/typesetting.py` - Pillow text rendering
 - `app/services/pipeline.py` - Orchestration pipeline
 
 **Features**:
-- ✅ Text region detection with confidence scoring
-- ✅ Multi-language OCR (Japanese, English, etc.)
+- ✅ Text region detection with PaddleOCR (high accuracy)
+- ✅ Multi-language OCR with PaddleOCR (Japanese, English, Chinese, Korean, etc.)
 - ✅ Mock translation (extensible to DeepL/Google)
 - ✅ OpenCV inpainting (TELEA/NS methods)
-- ✅ Advanced typesetting (wrapping, alignment, stroke)
+- ✅ Advanced typesetting with Pillow (wrapping, alignment, stroke)
 - ✅ RESTful API with auto-generated docs
 - ✅ Health check endpoint
 

@@ -2,13 +2,11 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies for OpenCV and PaddleOCR
 RUN apt-get update && apt-get install -y \
-    tesseract-ocr \
-    tesseract-ocr-jpn \
-    tesseract-ocr-eng \
     libgl1-mesa-glx \
     libglib2.0-0 \
+    libgomp1 \
     curl \
     && rm -rf /var/lib/apt/lists/*
 

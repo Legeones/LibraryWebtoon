@@ -13,12 +13,11 @@ node --version
 
 # Check Python version (need 3.9+)
 python3 --version
-
-# Check Tesseract (required for OCR)
-tesseract --version
 ```
 
 If any are missing, see [SETUP.md](SETUP.md) for installation instructions.
+
+**Note**: PaddleOCR will automatically download necessary models on first use.
 
 ## Quick Setup
 
@@ -75,17 +74,8 @@ npm run dev
 
 ## Common Issues
 
-### Tesseract Not Found
-```bash
-# Ubuntu/Debian
-sudo apt-get install tesseract-ocr tesseract-ocr-jpn
-
-# macOS
-brew install tesseract tesseract-lang
-
-# Windows
-# Download from: https://github.com/UB-Mannheim/tesseract/wiki
-```
+### PaddleOCR Model Download
+PaddleOCR will automatically download required models on first use. This may take a few minutes and requires internet connection. Models are cached in `~/.paddleocr/`.
 
 ### Port Already in Use
 ```bash
